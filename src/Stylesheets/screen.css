@@ -1,0 +1,18 @@
+.flex-container {
+  height: 400px;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #204051;
+}
+.result {
+  margin-left: 20px;
+  color: #204051;
+}
