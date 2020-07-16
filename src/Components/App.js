@@ -2,10 +2,11 @@ import React from "react";
 import NavigationBar from "./Navigationbar.js";
 import Screen from "./Screen.js";
 
-//Variables for colors
+//Variables
 const mainColor = "#e4e3e3";
 const changeColor = "#84a9ac";
 const middleColor = "#204051";
+const numbersMaxLength = 15;
 
 class App extends React.Component {
   //Constructor of the class
@@ -15,6 +16,8 @@ class App extends React.Component {
       numbers: [], // This will holds the numbers on the array to perform binary search
       result: "",
       animationArray: [],
+      range: -1, //The z-index for the alert range
+      limit: false, //The limit of numbers in the array of numbers
     };
   }
 
@@ -22,6 +25,21 @@ class App extends React.Component {
   addNumber(number) {
     //If the parameter is not a number or an empty string
     if (isNaN(number) || number === "") return;
+    //If the number is out of bounds
+    if (number > 99 || number < -9) {
+      //Show the "alert" of range
+      this.setState({ range: 1 });
+      //Wait 4 seconds and "hidde" the alert
+      setTimeout(() => {
+        this.setState({ range: -1 });
+      }, 4000);
+      return;
+    }
+    //If the length is up to the limit, disable the input
+    if (this.state.numbers.length === numbersMaxLength) {
+      this.setState({ limit: true });
+      return;
+    }
     //Otherwise, add the number to the array
     let newNumbers = this.state.numbers;
     let newNumber = { val: parseInt(number), col: mainColor };
@@ -119,6 +137,8 @@ class App extends React.Component {
           clear={this.clearArray.bind(this)}
           search={this.search.bind(this)}
           random={this.ramdonArray.bind(this)}
+          range={this.state.range}
+          limit={this.state.limit}
         />
         <Screen numbers={this.state.numbers} result={this.state.result} />
       </div>

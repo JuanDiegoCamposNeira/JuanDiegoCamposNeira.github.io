@@ -44,12 +44,16 @@ class NavigationBar extends React.Component {
       <div className="navbar">
         <h1>Binary Search algorithm</h1>
         <div className="inputs">
+          <div className="hidden" style={{ zIndex: this.props.range }}>
+            Range: -9 , 99
+          </div>
           <div>
             <label htmlFor="number">Add a number : </label>
             <input
               name="number"
               value={this.state.add}
               onChange={this.numberAdd.bind(this)}
+              disabled={this.props.limit}
             />
             <button onClick={this.handleAddNUmber.bind(this)}> Add </button>
           </div>
